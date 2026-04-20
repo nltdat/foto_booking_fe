@@ -1,10 +1,9 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import type { JwtPayload, UserRole } from "@/types/auth";
+import type { JwtPayload } from "@/types/auth";
 
 const AUTH_COOKIE_NAME = process.env.AUTH_COOKIE_NAME ?? "access_token";
 const LOGIN_PATH = "/auth/login";
-const CUSTOMER_PREFIX = "/customer";
 const PHOTOGRAPHER_PREFIX = "/photographer";
 
 function decodeJwtPayload(token: string): JwtPayload | null {
@@ -43,20 +42,11 @@ function redirectTo(request: NextRequest, pathname: string): NextResponse {
   return NextResponse.redirect(getRedirectUrl(request, pathname));
 }
 
-function resolveAuthorizedHome(role?: UserRole): string {
-  if (role === "PHOTOGRAPHER") {
-    return PHOTOGRAPHER_PREFIX;
-  }
-
-  return CUSTOMER_PREFIX;
-}
-
 export function middleware(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
-  const isCustomerRoute = pathname.startsWith(CUSTOMER_PREFIX);
   const isPhotographerRoute = pathname.startsWith(PHOTOGRAPHER_PREFIX);
 
-  if (!isCustomerRoute && !isPhotographerRoute) {
+  if (!isPhotographerRoute) {
     return NextResponse.next();
   }
 
@@ -76,17 +66,8 @@ export function middleware(request: NextRequest): NextResponse {
     return response;
   }
 
-  // Each dashboard namespace is isolated by role to avoid cross-area access.
-  if (isCustomerRoute && role === "PHOTOGRAPHER") {
-    return redirectTo(request, PHOTOGRAPHER_PREFIX);
-  }
-
   if (isPhotographerRoute && role === "CUSTOMER") {
-    return redirectTo(request, resolveAuthorizedHome(role));
-  }
-
-  if (isCustomerRoute && role !== "CUSTOMER") {
-    return redirectTo(request, LOGIN_PATH);
+    return redirectTo(request, "/customer");
   }
 
   if (isPhotographerRoute && role !== "PHOTOGRAPHER") {
@@ -97,5 +78,5 @@ export function middleware(request: NextRequest): NextResponse {
 }
 
 export const config = {
-  matcher: ["/customer/:path*", "/photographer/:path*"]
+  matcher: ["/photographer/:path*"]
 };

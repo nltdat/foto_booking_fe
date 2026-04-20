@@ -4,14 +4,18 @@
 
 :root {
   color-scheme: light;
+  --customer-bg: #f7efe6;
+  --customer-ink: #24180f;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, #f5efe6 0%, #ffffff 100%);
+  background:
+    radial-gradient(circle at top, rgba(255, 228, 196, 0.55), transparent 32%),
+    linear-gradient(180deg, #f7efe6 0%, #fffaf3 48%, #ffffff 100%);
   color: #171717;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
 }
 
 a {
@@ -21,4 +25,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
