@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { JwtPayload } from "@/types/auth";
 
 const AUTH_COOKIE_NAME = process.env.AUTH_COOKIE_NAME ?? "access_token";
-const LOGIN_PATH = "/auth/login";
+const LOGIN_PATH = "/sign-in";
 const PHOTOGRAPHER_PREFIX = "/photographer";
 
 function decodeJwtPayload(token: string): JwtPayload | null {
