@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AuthBootstrap } from "@/components/auth/auth-bootstrap";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,10 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AuthBootstrap />
+        {children}
+      </body>
     </html>
   );
 }
