@@ -22,6 +22,7 @@ export type ApiErrorData = {
   email?: string[];
   password?: string[];
   password_confirm?: string[];
+  old_password?: string[];
   first_name?: string[];
   last_name?: string[];
   role?: string[];

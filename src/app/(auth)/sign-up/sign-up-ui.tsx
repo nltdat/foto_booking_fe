@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarDays, Eye, EyeOff, Info } from "lucide-react";
+import { Eye, EyeOff, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useId, useState, type FormEvent, type ReactNode } from "react";
+import DatePickerField from "@/app/components/date-picker-field";
 import { ApiError, register } from "@/services/auth.service";
 import type { UserRole } from "@/types/auth";
 
@@ -260,12 +261,15 @@ function PhoneField() {
 }
 
 function BirthDateField() {
+  const [birthDate, setBirthDate] = useState("");
+
   return (
-    <FormField
+    <DatePickerField
+      value={birthDate}
+      onChange={setBirthDate}
       name="birth_date"
       label="Ngày sinh"
       placeholder="dd/mm/yyyy"
-      rightSlot={<CalendarDays className="h-5 w-5" strokeWidth={1.8} />}
       hint="Bạn phải đủ 16 tuổi để đăng ký."
     />
   );
