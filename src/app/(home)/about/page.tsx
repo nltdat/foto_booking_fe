@@ -112,8 +112,8 @@ export default function AboutPage() {
       <section className="relative isolate overflow-hidden bg-[#172d31]">
         <div className="absolute inset-0">
           <Image
-            src="/customer-home/welcome-to-potonow-2.jpg"
-            alt="Chân dung khách hàng Potonow"
+            src="/customer-home/bg.png"
+            alt="Chân dung ngoài trời của Potonow"
             fill
             priority
             sizes="100vw"
