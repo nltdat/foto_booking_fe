@@ -11,132 +11,7 @@ import {
 import { manrope } from "../../fonts";
 import CustomerFooter from "../../components/footer";
 import CustomerHeader from "../../components/header";
-
-const categories = [
-  "Chuyện Nhiếp Ảnh",
-  "English article",
-  "Nhiếp ảnh gia Potonow",
-  "Sự kiện",
-  "Về Potonow",
-  "E-magazine"
-] as const;
-
-const blogPosts = [
-  {
-    title:
-      "Ứng dụng Potonow chính thức ra mắt: Trải nghiệm đặt lịch chụp ảnh nhanh chóng, tiện lợi và linh hoạt",
-    excerpt:
-      "Đánh dấu bước phát triển mới trong hành trình số hoá trải nghiệm chụp ảnh, Potonow đã cho ra mắt ứng dụng đặt lịch chụp ảnh chuyên nghiệp đầu tiên tại Việt Nam.",
-    image: "/blogs/app-potonow-launch.jpg",
-    date: "01/07/2025",
-    readTime: "4 phút đọc",
-    categories: ["Về Potonow", "Sự kiện"],
-    href: "https://potonow.vn/blogs/ung-dung-potonow-chinh-thuc-ra-mat-trai-nghiem-dat-lich-chup-anh-nhanh-chong-tien-loi-va-linh-hoat"
-  },
-  {
-    title: "Tất tần tật những điều cần biết trước khi chụp ảnh doanh nghiệp",
-    excerpt:
-      "Trong bối cảnh thị trường ngày càng cạnh tranh, chụp ảnh doanh nghiệp trở thành một phần quan trọng trong chiến lược xây dựng hình ảnh thương hiệu của nhiều tổ chức.",
-    image: "/blogs/corporate-photography.jpg",
-    date: "17/02/2026",
-    readTime: "5 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/tat-tan-tat-nhung-dieu-can-biet-truoc-khi-chup-anh-doanh-nghiep"
-  },
-  {
-    title: "Tuyệt chiêu chụp ảnh với hoa hướng dương bắt trọn sắc vàng dưới nắng rực rỡ",
-    excerpt:
-      "Những cánh đồng hoa hướng dương trải dài, nhuộm một màu vàng rực rỡ luôn là điểm đến khiến bất kỳ ai yêu cái đẹp cũng phải xao xuyến.",
-    image: "/blogs/sunflower-portrait.jpg",
-    date: "14/02/2026",
-    readTime: "4 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/tuyet-chieu-chup-anh-voi-hoa-huong-duong-bat-tron-sac-vang-duoi-nang-ruc-ro"
-  },
-  {
-    title: "Xu hướng quà tết cho bố mẹ 2026: Tặng gì để trọn vẹn chữ hiếu?",
-    excerpt:
-      "Quà Tết cho bố mẹ không chỉ đơn thuần là một món đồ vật chất, mà còn là cách mỗi người con gửi gắm lời cảm ơn và yêu thương.",
-    image: "/blogs/tet-gifts-family.jpg",
-    date: "11/02/2026",
-    readTime: "4 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/xu-huong-qua-tet-cho-bo-me-2026-tang-gi-de-tron-ven-chu-hieu"
-  },
-  {
-    title: "Bí kíp \"hành nghề\" dành cho nhiếp ảnh gia Potonow khi chụp hình cho khách nước ngoài",
-    excerpt:
-      "Với khách nước ngoài, buổi chụp thành công không chỉ dựa vào kỹ thuật mà còn ở sự tinh tế trong giao tiếp và cách làm việc.",
-    image: "/blogs/foreign-client-tips.jpg",
-    date: "15/01/2026",
-    readTime: "4 phút đọc",
-    categories: ["Nhiếp ảnh gia Potonow"],
-    href: "https://potonow.vn/blogs/bi-kip-hanh-nghe-danh-cho-nhiep-anh-gia-potonow-khi-chup-hinh-cho-khach-nuoc-ngoai"
-  },
-  {
-    title: "Tips cho nhiếp ảnh gia: 4 lỗi phổ biến khiến profile của bạn bị từ chối",
-    excerpt:
-      "Profile ấn tượng trên Potonow là chìa khóa để photographer được duyệt nhanh và thu hút khách hàng phù hợp.",
-    image: "/blogs/profile-tips.jpg",
-    date: "15/01/2026",
-    readTime: "3 phút đọc",
-    categories: ["Nhiếp ảnh gia Potonow"],
-    href: "https://potonow.vn/blogs/tips-cho-nhiep-anh-gia-4-loi-pho-bien-khien-profile-cua-ban-bi-tu-choi"
-  },
-  {
-    title: "Cách chụp ảnh chân dung đẹp tự nhiên, thu hút mọi ánh nhìn",
-    excerpt:
-      "Một bức ảnh chân dung đẹp là sự kết hợp hài hòa của nhiều yếu tố, từ ánh sáng, góc chụp đến biểu cảm.",
-    image: "/blogs/natural-portrait.jpg",
-    date: "15/01/2026",
-    readTime: "4 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/cach-chup-anh-chan-dung-dep-tu-nhien-thu-hut-moi-anh-nhin"
-  },
-  {
-    title: "Mách bạn cách tạo dáng và địa điểm check-in chụp ảnh hoa ban Hà Nội",
-    excerpt:
-      "Mỗi độ tháng 2-3, hoa ban lại nở rộ, mang theo vẻ đẹp trong trẻo và lãng mạn rất riêng của Hà Nội.",
-    image: "/blogs/hoa-ban-hanoi.jpg",
-    date: "15/01/2026",
-    readTime: "4 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/mach-ban-cach-tao-dang-va-dia-diem-check-in-chup-anh-hoa-ban-ha-noi"
-  },
-  {
-    title: "13 địa điểm chụp hình Tết đẹp ở Sài Gòn 2026: lên đồ đi chụp ngay và luôn!",
-    excerpt:
-      "Nếu bạn đang tìm kiếm địa điểm chụp hình Tết đẹp ở Sài Gòn, danh sách này sẽ giúp bộ ảnh xuân có nhiều lựa chọn hơn.",
-    image: "/blogs/tet-saigon.jpg",
-    date: "22/12/2025",
-    readTime: "6 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/13-dia-diem-chup-hinh-tet-dep-o-sai-gon-2025-len-do-di-chup-ngay-va-luon"
-  },
-  {
-    title: "Đừng bỏ lỡ loạt địa điểm chụp ảnh tết đẹp ở Hà Nội năm 2026!",
-    excerpt:
-      "Tết Nguyên đán 2026 đang tới gần, những điểm chụp ảnh Tết tại Hà Nội sẽ giúp gia đình có bộ ảnh đáng nhớ.",
-    image: "/blogs/tet-hanoi.jpg",
-    date: "06/12/2025",
-    readTime: "5 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/dung-bo-lo-loat-dia-diem-chup-anh-tet-dep-o-ha-noi-nam-2025"
-  },
-  {
-    title: "Tất tần tật về chụp ảnh Tết 2026: xu hướng, thể loại, concept và cách tạo dáng",
-    excerpt:
-      "Tết là dịp tuyệt vời để lưu giữ khoảnh khắc đẹp nhất cùng những người thân yêu bằng một bộ ảnh thật tự nhiên.",
-    image: "/blogs/tet-concepts.jpg",
-    date: "01/12/2025",
-    readTime: "6 phút đọc",
-    categories: ["Chuyện Nhiếp Ảnh"],
-    href: "https://potonow.vn/blogs/tat-tan-tat-ve-chup-anh-tet-2025-xu-huong-the-loai-concept-va-cach-tao-dang"
-  }
-] as const;
-
-const featuredPost = blogPosts[0];
-const latestPosts = blogPosts.slice(1);
+import { blogCategories, blogPosts, featuredPost, latestPosts } from "./blog-data";
 
 function CategoryPill({ label }: { label: string }) {
   return (
@@ -180,14 +55,14 @@ export default function CustomerBlogsPage() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#ffd8b8] bg-[#fff3e8] px-4 py-2 text-[0.76rem] font-extrabold uppercase tracking-[0.18em] text-[#c45a10]">
                 <Sparkles className="h-4 w-4" />
-                Potonow Blog
+                Hilu Blog
               </div>
               <h1 className="mt-5 max-w-[46rem] text-[2.45rem] font-extrabold leading-tight tracking-normal text-[#202a32] sm:text-[4rem]">
                 Cảm hứng chụp ảnh, concept đẹp và mẹo đặt lịch
               </h1>
               <p className="mt-5 max-w-[42rem] text-[1.02rem] leading-8 text-[#68717d] sm:text-[1.1rem]">
-                Tuyển chọn những bài viết nổi bật từ Potonow về nhiếp ảnh, địa điểm,
-                xu hướng concept và kinh nghiệm làm việc cùng photographer.
+                Tuyển chọn những bài viết nổi bật về nhiếp ảnh, địa điểm, xu hướng concept và
+                kinh nghiệm làm việc cùng photographer.
               </p>
             </div>
 
@@ -198,10 +73,10 @@ export default function CustomerBlogsPage() {
                 </span>
                 <div>
                   <p className="text-[1.25rem] font-extrabold text-[#202a32]">
-                    {blogPosts.length} bài viết nổi bật
+                    {blogPosts.length} bài viết nội bộ
                   </p>
                   <p className="text-[0.92rem] leading-6 text-[#68717d]">
-                    Ảnh thật được chọn từ Potonow Blog.
+                    Ảnh đã được lưu trong hilu.pics.
                   </p>
                 </div>
               </div>
@@ -209,7 +84,7 @@ export default function CustomerBlogsPage() {
           </div>
 
           <div className="mt-9 flex gap-2 overflow-x-auto pb-2">
-            {categories.map((category) => (
+            {blogCategories.map((category) => (
               <CategoryPill key={category} label={category} />
             ))}
           </div>
@@ -221,9 +96,7 @@ export default function CustomerBlogsPage() {
           <article className="overflow-hidden rounded-[1.45rem] border border-[#dfe8e3] bg-white shadow-[0_20px_60px_rgba(36,61,59,0.08)]">
             <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
               <Link
-                href={featuredPost.href}
-                target="_blank"
-                rel="noreferrer"
+                href={`/blogs/${featuredPost.slug}`}
                 className="group relative block aspect-[1.75] overflow-hidden lg:aspect-auto lg:min-h-full"
               >
                 <Image
@@ -260,9 +133,7 @@ export default function CustomerBlogsPage() {
                 <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                   <PostMeta date={featuredPost.date} readTime={featuredPost.readTime} />
                   <Link
-                    href={featuredPost.href}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={`/blogs/${featuredPost.slug}`}
                     className="inline-flex h-11 items-center justify-center gap-2 rounded-[0.8rem] bg-[#ff7a1a] px-4 text-[0.92rem] font-extrabold text-white transition hover:bg-[#eb690e]"
                   >
                     Đọc bài
@@ -284,25 +155,23 @@ export default function CustomerBlogsPage() {
                 Bài mới
               </p>
               <h2 className="mt-3 text-[2rem] font-extrabold leading-tight tracking-normal text-[#202a32] sm:text-[2.65rem]">
-                Đọc thêm từ Potonow
+                Đọc thêm từ Hilu
               </h2>
             </div>
             <p className="max-w-[32rem] text-[0.98rem] leading-7 text-[#68717d]">
-              Các bài viết được sắp xếp theo nhịp cập nhật của trang mẫu, ưu tiên nội dung hữu ích
-              cho cả khách chụp và photographer.
+              Các bài viết được dựng thành trang nội bộ, ưu tiên nội dung hữu ích cho cả khách
+              chụp và photographer.
             </p>
           </div>
 
           <div className="grid gap-5">
             {latestPosts.map((post) => (
               <article
-                key={post.title}
+                key={post.slug}
                 className="group grid gap-4 rounded-[1.2rem] border border-[#dfe8e3] bg-white p-3 shadow-[0_12px_38px_rgba(36,61,59,0.06)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_48px_rgba(36,61,59,0.1)] sm:grid-cols-[17rem_1fr] sm:gap-5 sm:p-4"
               >
                 <Link
-                  href={post.href}
-                  target="_blank"
-                  rel="noreferrer"
+                  href={`/blogs/${post.slug}`}
                   className="relative block aspect-[1.75] overflow-hidden rounded-[0.95rem] bg-[#edf3ef]"
                 >
                   <Image
@@ -327,7 +196,7 @@ export default function CustomerBlogsPage() {
                       ))}
                     </div>
 
-                    <Link href={post.href} target="_blank" rel="noreferrer">
+                    <Link href={`/blogs/${post.slug}`}>
                       <h3 className="mt-3 text-[1.12rem] font-extrabold leading-snug tracking-normal text-[#202a32] transition hover:text-[#f47c20] sm:text-[1.32rem]">
                         {post.title}
                       </h3>
@@ -338,9 +207,7 @@ export default function CustomerBlogsPage() {
                   <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <PostMeta date={post.date} readTime={post.readTime} />
                     <Link
-                      href={post.href}
-                      target="_blank"
-                      rel="noreferrer"
+                      href={`/blogs/${post.slug}`}
                       className="inline-flex items-center gap-1.5 text-[0.9rem] font-extrabold text-[#f47c20] transition hover:text-[#c45a10]"
                     >
                       Đọc bài
