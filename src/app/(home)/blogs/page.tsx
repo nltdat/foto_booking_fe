@@ -1,10 +1,11 @@
 "use client";
 
+import { manrope } from "../../fonts";
 import CustomerHeader from "../../components/header";
 
 export default function CustomerBlogsPage() {
   return (
-    <main className="min-h-screen bg-[#fcf8f2] text-[#23180f]">
+    <main className={`${manrope.className} min-h-screen bg-[#fcf8f2] text-[#23180f]`}>
       <CustomerHeader />
 
       <section className="mx-auto flex w-full max-w-[75rem] px-4 py-16 sm:px-6 lg:px-8">
