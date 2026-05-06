@@ -44,7 +44,7 @@ export async function getPhotographers(
 ): Promise<PaginatedPhotographersResponse> {
   const params = toSearchParams(query);
   const queryString = params.toString();
-  const response = await fetch(`/api/photographers${queryString ? `?${queryString}` : ""}`, {
+  const response = await fetch(`/api/photographers/${queryString ? `?${queryString}` : ""}`, {
     method: "GET",
     headers: getAuthorizationHeaders(),
     cache: "no-store"
@@ -62,7 +62,7 @@ export async function getPhotographers(
 export async function favoritePhotographer(
   photographerId: number
 ): Promise<PhotographerFavoriteResponse> {
-  const response = await fetch(`/api/photographers/${photographerId}/favorite`, {
+  const response = await fetch(`/api/photographers/${photographerId}/favorite/`, {
     method: "POST",
     headers: getAuthorizationHeaders(),
     cache: "no-store"
@@ -80,7 +80,7 @@ export async function favoritePhotographer(
 export async function unfavoritePhotographer(
   photographerId: number
 ): Promise<PhotographerFavoriteResponse> {
-  const response = await fetch(`/api/photographers/${photographerId}/favorite`, {
+  const response = await fetch(`/api/photographers/${photographerId}/favorite/`, {
     method: "DELETE",
     headers: getAuthorizationHeaders(),
     cache: "no-store"
