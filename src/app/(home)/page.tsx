@@ -1,9 +1,10 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
 import {
   ArrowRight,
   CalendarDays,
@@ -19,16 +20,6 @@ import {
 } from "lucide-react";
 import CustomerFooter from "../components/footer";
 import CustomerHeader from "../components/header";
-
-const serif = Cormorant_Garamond({
-  subsets: ["latin", "vietnamese"],
-  weight: ["500", "600", "700"]
-});
-
-const sans = Manrope({
-  subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700", "800"]
-});
 
 const heroSlides = [
   {
@@ -204,7 +195,7 @@ export default function CustomerDashboardPage() {
 
   return (
     <main
-      className={`${sans.className} min-h-screen bg-[#fcf8f2] text-[14px] text-[#23180f] lg:text-[14.5px]`}
+      className="min-h-screen bg-[#fcf8f2] text-[14px] text-[#23180f] lg:text-[14.5px]"
     >
       <CustomerHeader />
 
