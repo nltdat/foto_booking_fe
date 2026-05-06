@@ -43,7 +43,7 @@ export class ApiError extends Error {
 }
 
 export async function login(payload: LoginRequest): Promise<TokenPairResponse> {
-  const response = await fetch("/api/auth/login", {
+  const response = await fetch("/api/auth/login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -61,7 +61,7 @@ export async function login(payload: LoginRequest): Promise<TokenPairResponse> {
 }
 
 export async function register(payload: RegisterRequest): Promise<UserProfile> {
-  const response = await fetch("/api/auth/register", {
+  const response = await fetch("/api/auth/register/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -81,7 +81,7 @@ export async function register(payload: RegisterRequest): Promise<UserProfile> {
 export async function requestPasswordReset(
   payload: ForgotPasswordRequest
 ): Promise<ForgotPasswordResponse> {
-  const response = await fetch("/api/auth/forgot-password", {
+  const response = await fetch("/api/auth/forgot-password/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -110,7 +110,7 @@ export async function logout(payload: LogoutRequest): Promise<LogoutResponse> {
 export async function resetPassword(
   payload: ResetPasswordRequest
 ): Promise<ResetPasswordResponse> {
-  const response = await fetch("/api/auth/reset-password", {
+  const response = await fetch("/api/auth/reset-password/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
