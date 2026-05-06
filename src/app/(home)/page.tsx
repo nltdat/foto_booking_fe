@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { manrope } from "../fonts";
 import {
   ArrowRight,
   CalendarDays,
@@ -195,7 +196,7 @@ export default function CustomerDashboardPage() {
 
   return (
     <main
-      className="min-h-screen bg-[#fcf8f2] text-[14px] text-[#23180f] lg:text-[14.5px]"
+      className={`${manrope.className} min-h-screen bg-[#fcf8f2] text-[14px] text-[#23180f] lg:text-[14.5px]`}
     >
       <CustomerHeader />
 
