@@ -27,6 +27,7 @@ export interface RegisterRequest {
   password_confirm: string;
   first_name?: string;
   last_name?: string;
+  birth_date?: string;
   role?: UserRole;
 }
 
@@ -57,6 +58,24 @@ export interface ResetPasswordResponse {
   detail: string;
 }
 
+export interface ChangePasswordRequest {
+  old_password: string;
+  new_password: string;
+  new_password_confirm: string;
+}
+
+export interface ChangePasswordResponse {
+  detail: string;
+}
+
+export interface DeleteAccountRequest {
+  password: string;
+}
+
+export interface DeleteAccountResponse {
+  detail: string;
+}
+
 export interface TokenVerifyRequest {
   token: string;
 }
@@ -69,6 +88,7 @@ export interface UserProfile {
   last_name?: string;
   role: UserRole;
   avatar_url: string | null;
+  cover_image_url?: string | null;
   photographer_profile_id: string | null;
 }
 
@@ -91,6 +111,7 @@ export interface AuthState {
   isAuthenticated: boolean;
   isHydrated: boolean;
   setSession: (session: StoredAuthSession) => void;
+  updateUser: (user: UserProfile) => void;
   clearSession: () => void;
   hydrateFromStorage: () => void;
 }

@@ -20,8 +20,10 @@ export type ApiErrorData = {
   token?: string[];
   username?: string[];
   email?: string[];
+  birth_date?: string[];
   password?: string[];
   password_confirm?: string[];
+  old_password?: string[];
   first_name?: string[];
   last_name?: string[];
   role?: string[];

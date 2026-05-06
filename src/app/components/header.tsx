@@ -150,7 +150,7 @@ export default function CustomerHeader({
     }
 
     return [
-      { href: "/customer/profile", label: "Trang cá nhân", icon: UserRound },
+      { href: "/my-page", label: "Trang cá nhân", icon: UserRound },
       { href: "/customer/shootings", label: "Buổi chụp của tôi", icon: List },
       { href: "/customer/favorites", label: "Nhiếp ảnh gia yêu thích", icon: Heart },
       { href: "/bookings", label: "Đặt lịch", icon: Camera },
