@@ -23,9 +23,11 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
   updateUser: (user) => {
     const { accessToken, refreshToken } = useAuthStore.getState();
-    if (accessToken && refreshToken) {
-      persistAuthSession({ accessToken, refreshToken, user });
+    if (!accessToken || !refreshToken) {
+      return;
     }
+
+    persistAuthSession({ accessToken, refreshToken, user });
     set({ user });
   },
   clearSession: () => {

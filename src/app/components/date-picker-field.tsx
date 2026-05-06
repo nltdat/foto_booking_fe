@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { CalendarDays, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 
 const monthNames = [
@@ -22,6 +22,7 @@ const weekDays = ["Th 2", "Th 3", "Th 4", "Th 5", "Th 6", "Th 7", "CN"];
 const yearOptions = Array.from({ length: 101 }, (_, index) => 1950 + index);
 
 type DatePickerFieldProps = {
+  id?: string;
   value: string;
   onChange: (value: string) => void;
   label?: string;
@@ -76,6 +77,7 @@ function getMonthDays(viewDate: Date) {
 }
 
 export default function DatePickerField({
+  id,
   value,
   onChange,
   label,
@@ -87,6 +89,8 @@ export default function DatePickerField({
   labelClassName,
   inputClassName
 }: DatePickerFieldProps) {
+  const generatedInputId = useId();
+  const inputId = id ?? name ?? generatedInputId;
   const rootRef = useRef<HTMLDivElement>(null);
   const selectedDate = parseDate(value);
   const [isOpen, setIsOpen] = useState(false);
@@ -128,7 +132,7 @@ export default function DatePickerField({
   return (
     <div ref={rootRef} className="relative">
       {label ? (
-        <label className={labelClassName ?? defaultLabelClass}>
+        <label htmlFor={inputId} className={labelClassName ?? defaultLabelClass}>
           {label}
           {required ? <span className="text-[#ff6a42]"> *</span> : null}
         </label>
@@ -136,7 +140,10 @@ export default function DatePickerField({
 
       <div className="relative">
         <input
+          id={inputId}
           name={name}
+          required={required}
+          aria-required={required || undefined}
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}

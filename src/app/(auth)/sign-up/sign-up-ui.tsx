@@ -566,11 +566,24 @@ function splitFullName(fullName: string): { firstName: string; lastName: string 
   };
 }
 
+function formatDateForBackend(value: string): string {
+  const trimmedValue = value.trim();
+  const match = trimmedValue.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+
+  if (!match) {
+    return trimmedValue;
+  }
+
+  const [, day, month, year] = match;
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+}
+
 function getRegisterErrorMessage(error: ApiError): string {
   return (
     error.data.detail ??
     error.data.username?.[0] ??
     error.data.email?.[0] ??
+    error.data.birth_date?.[0] ??
     error.data.password?.[0] ??
     error.data.password_confirm?.[0] ??
     error.data.role?.[0] ??
@@ -595,6 +608,7 @@ async function submitRegisterForm({
   const form = event.currentTarget;
   const formData = new FormData(form);
   const fullName = String(formData.get("full_name") ?? "");
+  const birthDate = formatDateForBackend(String(formData.get("birth_date") ?? ""));
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get(`${role === "CUSTOMER" ? "customer" : "photographer"}-password`) ?? "");
   const passwordConfirm = String(
@@ -625,6 +639,7 @@ async function submitRegisterForm({
       password_confirm: passwordConfirm,
       first_name: firstName,
       last_name: lastName,
+      birth_date: birthDate || undefined,
       role
     });
     onSuccess();

@@ -11,6 +11,9 @@ import type {
 export type UpdateCurrentUserPayload = {
   first_name?: string;
   last_name?: string;
+  birth_date?: string;
+  phone?: string;
+  gender?: string;
   avatar?: File;
   cover_image?: File;
 };

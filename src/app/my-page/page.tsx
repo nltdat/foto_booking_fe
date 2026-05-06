@@ -95,6 +95,18 @@ function formatBackendDate(value?: string | null): string {
   return value;
 }
 
+function formatDateForBackend(value: string): string {
+  const trimmedValue = value.trim();
+  const match = trimmedValue.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+
+  if (!match) {
+    return trimmedValue;
+  }
+
+  const [, day, month, year] = match;
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+}
+
 function userToProfile(user: ExtendedUserProfile): Profile {
   return {
     fullName: getDisplayName(user),
@@ -599,6 +611,16 @@ export default function MyPage() {
   }, [authUser]);
 
   useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
+    if (!isAuthenticated) {
+      router.replace("/sign-in");
+    }
+  }, [isAuthenticated, isHydrated, router]);
+
+  useEffect(() => {
     if (!isHydrated || !isAuthenticated) {
       return;
     }
@@ -637,13 +659,8 @@ export default function MyPage() {
   function applyUserData(user: ExtendedUserProfile) {
     setProfile(userToProfile(user));
 
-    if (user.avatar_url) {
-      setAvatarSrc(getFreshImageUrl(user.avatar_url));
-    }
-
-    if (user.cover_image_url) {
-      setCoverSrc(getFreshImageUrl(user.cover_image_url));
-    }
+    setAvatarSrc(user.avatar_url ? getFreshImageUrl(user.avatar_url) : "/my-page/avatar.webp");
+    setCoverSrc(user.cover_image_url ? getFreshImageUrl(user.cover_image_url) : "");
   }
 
   async function handleImageChange(
@@ -678,7 +695,10 @@ export default function MyPage() {
     const { firstName, lastName } = splitFullName(nextProfile.fullName);
     await updateCurrentUser({
       first_name: firstName,
-      last_name: lastName
+      last_name: lastName,
+      birth_date: formatDateForBackend(nextProfile.birthday),
+      phone: nextProfile.phone.trim(),
+      gender: nextProfile.gender.trim()
     });
 
     const updatedUser = await getCurrentUser();
