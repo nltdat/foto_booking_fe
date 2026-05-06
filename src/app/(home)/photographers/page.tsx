@@ -1,14 +1,8 @@
-import { Manrope } from "next/font/google";
 import CustomerHeader from "../../components/header";
-
-const sans = Manrope({
-  subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700", "800"]
-});
 
 export default function CustomerPhotographersPage() {
   return (
-    <main className={`${sans.className} min-h-screen bg-[#fcf8f2] text-[#23180f]`}>
+    <main className="min-h-screen bg-[#fcf8f2] text-[#23180f]">
       <CustomerHeader />
 
       <section className="mx-auto flex w-full max-w-[75rem] px-4 py-16 sm:px-6 lg:px-8">
