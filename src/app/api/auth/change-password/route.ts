@@ -1,6 +1,6 @@
-import { getServerApiBaseUrl } from "@/lib/server-api";
+import { proxyJsonRequest } from "@/lib/server-json-proxy";
 
-function getAuthHeader(request: Request): HeadersInit {
+function getAuthHeader(request: Request): Record<string, string> {
   const authorization = request.headers.get("authorization");
   return authorization ? { Authorization: authorization } : {};
 }
@@ -20,14 +20,13 @@ async function proxyResponse(response: Response): Promise<Response> {
 export async function POST(request: Request): Promise<Response> {
   try {
     const body = await request.text();
-    const response = await fetch(`${getServerApiBaseUrl()}/api/auth/change-password/`, {
-      method: "POST",
+    const response = await proxyJsonRequest({
+      pathname: "/api/auth/change-password/",
+      body,
       headers: {
         ...getAuthHeader(request),
         "Content-Type": request.headers.get("content-type") ?? "application/json"
-      },
-      body,
-      cache: "no-store"
+      }
     });
 
     return proxyResponse(response);

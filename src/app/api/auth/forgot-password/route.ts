@@ -1,4 +1,4 @@
-import { getServerApiBaseUrl } from "@/lib/server-api";
+import { proxyJsonRequest } from "@/lib/server-json-proxy";
 
 export async function POST(request: Request): Promise<Response> {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -8,13 +8,12 @@ export async function POST(request: Request): Promise<Response> {
     const body = await request.json();
     timeoutId = setTimeout(() => controller.abort(), 10000);
 
-    const response = await fetch(`${getServerApiBaseUrl()}/api/auth/forgot-password/`, {
-      method: "POST",
+    const response = await proxyJsonRequest({
+      pathname: "/api/auth/forgot-password/",
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(body),
-      cache: "no-store",
       signal: controller.signal
     });
 

@@ -1,15 +1,14 @@
-import { getServerApiBaseUrl } from "@/lib/server-api";
+import { proxyJsonRequest } from "@/lib/server-json-proxy";
 
 export async function POST(request: Request): Promise<Response> {
   try {
     const body = await request.json();
-    const response = await fetch(`${getServerApiBaseUrl()}/api/auth/token/refresh/`, {
-      method: "POST",
+    const response = await proxyJsonRequest({
+      pathname: "/api/auth/token/refresh/",
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body),
-      cache: "no-store"
+      }
     });
 
     const data = await response.json();
