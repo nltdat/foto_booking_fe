@@ -4,7 +4,7 @@ import { getServerApiBaseUrl } from "@/lib/server-api";
 
 type ProxyJsonRequestInput = {
   pathname: string;
-  method?: "POST" | "GET";
+  method?: "POST" | "GET" | "DELETE";
   body?: string;
   headers?: Record<string, string>;
   signal?: AbortSignal;

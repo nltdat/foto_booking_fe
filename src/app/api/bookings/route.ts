@@ -1,6 +1,7 @@
 import http from "node:http";
 import https from "node:https";
 import { getServerApiBaseUrl } from "@/lib/server-api";
+import { proxyJsonRequest } from "@/lib/server-json-proxy";
 
 export const runtime = "nodejs";
 
@@ -104,7 +105,7 @@ async function proxyGet(url: URL, headers: Record<string, string>): Promise<Resp
 export async function GET(request: Request): Promise<Response> {
   try {
     const url = new URL(request.url);
-    const backendUrl = new URL(`${getServerApiBaseUrl()}/api/bookings${url.search}`);
+    const backendUrl = new URL(`${getServerApiBaseUrl()}/api/bookings/${url.search}`);
 
     const response = await proxyGet(backendUrl, getAuthHeader(request));
     return response;
@@ -112,6 +113,36 @@ export async function GET(request: Request): Promise<Response> {
     console.error("Unable to proxy bookings request.", err);
     return Response.json(
       { detail: "Không thể tải danh sách buổi chụp." },
+      { status: 502 }
+    );
+  }
+}
+
+export async function POST(request: Request): Promise<Response> {
+  try {
+    const body = await request.text();
+    const response = await proxyJsonRequest({
+      pathname: "/api/bookings/",
+      method: "POST",
+      headers: {
+        ...getAuthHeader(request),
+        "Content-Type": request.headers.get("content-type") ?? "application/json"
+      },
+      body,
+      signal: request.signal
+    });
+
+    const responseBody = await response.text();
+    return new Response(responseBody, {
+      status: response.status,
+      headers: {
+        "Content-Type": response.headers.get("content-type") ?? "application/json"
+      }
+    });
+  } catch (err) {
+    console.error("Unable to proxy booking create request.", err);
+    return Response.json(
+      { detail: "Không thể tạo lịch chụp." },
       { status: 502 }
     );
   }
