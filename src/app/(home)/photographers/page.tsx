@@ -467,7 +467,7 @@ function PhotographersClientPage() {
               <button
                 type="button"
                 onClick={() => setIsFilterOpen(true)}
-                className="inline-flex h-12 items-center gap-2 rounded-[0.9rem] border border-[#e5d8c7] bg-white px-4 font-bold text-[#222631] shadow-[0_12px_30px_rgba(89,61,44,0.06)] transition hover:border-[#f47c20]"
+                className="inline-flex h-12 min-w-[8rem] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[0.9rem] border border-[#e5d8c7] bg-white px-5 font-bold text-[#222631] shadow-[0_12px_30px_rgba(89,61,44,0.06)] transition hover:border-[#f47c20]"
               >
                 <Filter className="h-5 w-5 text-[#f47c20]" />
                 Bộ lọc

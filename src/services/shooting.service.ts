@@ -1,4 +1,4 @@
-import type { Booking, PaginatedShootingsResponse } from "@/types/shooting";
+import type { Booking, CreateBookingInput, PaginatedShootingsResponse } from "@/types/shooting";
 import {
   getAccessToken,
   getRefreshToken,
@@ -130,6 +130,23 @@ export async function getShooting(id: string): Promise<Booking> {
 
   if (!response.ok) {
     throw new Error("Unable to fetch shooting.");
+  }
+
+  return data;
+}
+
+export async function createBooking(payload: CreateBookingInput): Promise<Booking> {
+  const response = await fetchWithAuthRetry("/api/bookings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+  const data = await readJsonResponse<Booking>(response);
+
+  if (!response.ok) {
+    throw new Error("Unable to create booking.");
   }
 
   return data;

@@ -26,3 +26,15 @@ export type PaginatedShootingsResponse = {
   previous?: string | null;
   results: Booking[];
 };
+
+export type CreateBookingInput = {
+  title: string;
+  category: BookingCategory;
+  shoot_date: string;
+  deadline_date: string;
+  location: number;
+  environment: BookingEnvironment;
+  requires_makeup: boolean;
+  budget_min: string;
+  budget_max: string;
+};

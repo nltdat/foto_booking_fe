@@ -1,4 +1,6 @@
-import { getServerApiBaseUrl } from "@/lib/server-api";
+import { proxyJsonRequest } from "@/lib/server-json-proxy";
+
+export const runtime = "nodejs";
 
 type RouteContext = {
   params: {
@@ -6,7 +8,7 @@ type RouteContext = {
   };
 };
 
-function getAuthHeader(request: Request): HeadersInit {
+function getAuthHeader(request: Request): Record<string, string> {
   const authorization = request.headers.get("authorization");
   return authorization ? { Authorization: authorization } : {};
 }
@@ -29,14 +31,12 @@ async function proxyFavorite(
   method: "POST" | "DELETE"
 ): Promise<Response> {
   try {
-    const response = await fetch(
-      `${getServerApiBaseUrl()}/api/photographers/${context.params.id}/favorite/`,
-      {
-        method,
-        headers: getAuthHeader(request),
-        cache: "no-store"
-      }
-    );
+    const response = await proxyJsonRequest({
+      pathname: `/api/photographers/${context.params.id}/favorite/`,
+      method,
+      headers: getAuthHeader(request),
+      signal: request.signal
+    });
 
     return proxyResponse(response);
   } catch {
